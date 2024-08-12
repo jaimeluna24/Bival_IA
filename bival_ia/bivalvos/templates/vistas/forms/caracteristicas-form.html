@@ -1,0 +1,78 @@
+<div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+    <div>
+        <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900 ">Codigo de muestra</label>
+        <input name="codigomuestra" type="text" id="default-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+    </div>
+    <div class="mb-1">
+        <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900 ">Altura</label>
+        <input name="altura" value="0" type="number" id="default-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+    </div>
+
+    <div class="mb-1">
+        <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900 ">Ancho</label>
+        <input name="ancho" value="0" type="number" id="default-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+    </div>
+    <div class="mb-1">
+        <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900 ">Espesor</label>
+        <input name="espesor" value="0" type="number" id="default-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+    </div>
+    <div class="mb-1">
+        <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900 ">Color</label>
+        <input name="color" type="text" id="default-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+    </div>
+    <div class="mb-1">
+        <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900 ">Estructura de concha</label>
+        <input name="estructuraconcha"  type="text" id="default-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+    </div>
+    <div class="mb-1">
+        <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900 ">Peso con carne</label>
+        <input name="pesoconcarne" value="0" type="number" id="default-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+    </div>
+    <div class="mb-1">
+        <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900 ">Peso sin carne</label>
+        <input name="pesosincarne" value="0" type="number" id="default-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+    </div>
+
+    <div class="mb-1">
+        <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 ">Condición del Bivalvo</label>
+        <select name="idcondicionbivalvo" id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required>
+          <option selected>Seleccione</option>
+          {% for item in condiciones_list %}
+          <option value="{{ item.id }}">{{ item.condicion }}</option>
+          {% endfor %}
+        </select>
+    </div>
+
+    <div class="mb-1">
+        <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 ">Forma</label>
+        <select name="idforma" id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required>
+          <option selected>Seleccione</option>
+          {% for item in formas_list %}
+          <option value="{{ item.id }}">{{ item.forma }}</option>
+            
+          {% endfor %}
+        </select>
+    </div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-5 gap-4 mt-4">
+    <div>
+        <label class="block mb-2 text-sm font-medium text-gray-900" for="file_input">Fotografía ángulo dorsal</label>
+        <input name="fotodorsal" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 p-2.5" id="file_input" type="file" required>
+    </div>
+    <div>
+        <label class="block mb-2 text-sm font-medium text-gray-900" for="file_input">Fotografía ángulo lateral</label>
+        <input name="fotolateral" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 p-2.5" id="file_input" type="file" required>
+    </div>
+    <div>
+        <label class="block mb-2 text-sm font-medium text-gray-900" for="file_input">Fotografía ángulo ventral</label>
+        <input name="fotoventral" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 p-2.5" id="file_input" type="file" required>
+    </div>
+    <div>
+        <label class="block mb-2 text-sm font-medium text-gray-900" for="file_input">Fotografía ángulo anterior</label>
+        <input name="fotoanterior" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 p-2.5" id="file_input" type="file" required>
+    </div>
+    <div>
+        <label class="block mb-2 text-sm font-medium text-gray-900" for="file_input">Fotografia ángulo posterior ángulo</label>
+        <input name="fotoposterior" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 p-2.5" id="file_input" type="file" required>
+    </div>
+</div>  

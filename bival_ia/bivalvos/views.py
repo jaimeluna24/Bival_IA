@@ -1,0 +1,112 @@
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from .models import *
+from django.db import transaction
+
+# Create your views here.
+def inicio(request):
+    return HttpResponse("<h1> Hola</h1>")
+
+def muestras(request):
+    filtro = request.GET.get('filtro', None)  # Obtener el valor de la consulta GET
+    if filtro:
+        muestras_list = Caracteristicasbivalvos.objects.filter(codigomuestra = filtro)
+    else:
+        muestras_list = Caracteristicasbivalvos.objects.all()
+    # muestras_list = Caracteristicasbivalvos.objects.all()
+    return render(request, 'vistas/muestras.html',{'muestras_list': muestras_list})
+
+@transaction.atomic
+def agregar(request):
+    condiciones_list = Condicionesbivalvos.objects.all()
+    formas_list = Formas.objects.all()
+    habitat = Habitats.objects.all()
+    tipo_habitat = Tiposhabitat.objects.all()
+    especies_list = Especies.objects.all()
+    if request.method == 'POST':
+        try:
+            # Guardamos los datos de la Ubicación
+            ubicacion_form = Ubicaciones(
+                latitud = request.POST.get('latitud'),
+                longitud = request.POST.get('longitud'),
+                altitud = request.POST.get('altitud'),
+                region = request.POST.get('region')
+            )
+            ubicacion_form.save()
+
+            #Guardamos los datos de marea
+            marea_form = Mareas(
+                hora = request.POST.get('hora'),
+                zonalugar = request.POST.get('zonalugar'),
+                altitudmarea = request.POST.get('altitudmarea'),
+                observaciones = request.POST.get('observaciones'),
+            )
+            marea_form.save()
+
+            # Guardar las Variables ambientales
+
+            # Se obtiene la instancia de Habitats
+            idhabitats = request.POST.get('idhabitat')
+            habitat_instance = Habitats.objects.get(id=idhabitats)
+
+            # Se obtiene la instancia de Especies
+            idespecie = request.POST.get('idespecie')
+            especie_instance = Especies.objects.get(id=idespecie)
+
+            # Se obtiene la instancia de TipoHabitat
+            idtipohabitat = request.POST.get('idtipohabitat')
+            tipohabitat_instance = Tiposhabitat.objects.get(id=idtipohabitat)
+            
+            variablesambientales_form = Variablesambientales(
+                temperatura = request.POST.get('temperatura'),
+                salinidad = request.POST.get('salinidad'),
+                ph = request.POST.get('ph'),
+                oxigeno = request.POST.get('oxigeno'),
+                idubicacion = ubicacion_form,
+                idhabitat = habitat_instance,
+                idespecie = especie_instance,
+                idmarea = marea_form,
+                idtipohabitat = tipohabitat_instance,
+            )
+            variablesambientales_form.save()
+
+
+            # Se obtiene la instancia de condiciones
+            idcondicion = request.POST.get('idcondicionbivalvo')
+            condicion_instance = Condicionesbivalvos.objects.get(id=idcondicion)
+
+            # Se obtiene la instancia de formas
+            idforma = request.POST.get('idforma')
+            forma_instance = Formas.objects.get(id=idforma)
+
+            # Guardamos los datos caracteristicos de los bivalvos
+            caracteristicas_form = Caracteristicasbivalvos(
+                codigomuestra = request.POST.get('codigomuestra'),
+                altura = request.POST.get('altura'),
+                ancho = request.POST.get('ancho'),
+                espesor = request.POST.get('espesor'),
+                color = request.POST.get('color'),
+                estructuraconcha = request.POST.get('estructuraconcha'),
+                pesoconcarne = request.POST.get('pesoconcarne'),
+                pesosincarne = request.POST.get('pesosincarne'),
+                fotodorsal = request.FILES.get('fotodorsal'),
+                fotolateral = request.FILES.get('fotolateral'),
+                fotoventral = request.FILES.get('fotoventral'),
+                fotoanterior = request.FILES.get('fotoanterior'),
+                fotoposterior = request.FILES.get('fotoposterior'),
+                idcondicionbivalvo = condicion_instance,
+                idforma = forma_instance,
+                idvariableambiental = variablesambientales_form,
+            )
+            caracteristicas_form.save()
+
+            return redirect('muestras')
+
+        except Exception as e:
+            transaction.set_rollback(True)
+            return render(request, 'vistas/error.html', {'error': str(e)})
+
+
+
+    return render(request, 'vistas/agregar-muestra.html', {'condiciones_list': condiciones_list, 'formas_list': formas_list,
+                                                           'habitat': habitat, 'tipo_habitat': tipo_habitat, 'especies_list': especies_list})

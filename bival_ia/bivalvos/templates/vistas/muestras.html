@@ -1,0 +1,105 @@
+{% extends 'layout.html' %}
+
+{% block titulo %}
+    Muestras
+{% endblock  %}
+
+{% block menu_item %}
+<li>
+    <a href="/muestras" class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500" aria-current="page">Muestras</a>
+  </li>
+  <li>
+    <a href="/agregar-muestra" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Agregar Muestras</a>
+  </li>
+
+{% endblock menu_item %}
+
+{% block seccion %}
+    Muestras
+{% endblock seccion %}
+
+{% block filtro %}
+<div class="mb-6 w-full md:w-4/12">
+    <form method="GET" class="flex items-center gap-3">
+        <input value="{{ filtro|default_if_none:'' }}" type="text" id="filtro" name="filtro" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Buscar por código">
+
+        <div class="flex gap-0">
+            <button type="submit" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2  dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ffffff" d="m19.6 21l-6.3-6.3q-.75.6-1.725.95T9.5 16q-2.725 0-4.612-1.888T3 9.5t1.888-4.612T9.5 3t4.613 1.888T16 9.5q0 1.1-.35 2.075T14.7 13.3l6.3 6.3zM9.5 14q1.875 0 3.188-1.312T14 9.5t-1.312-3.187T9.5 5T6.313 6.313T5 9.5t1.313 3.188T9.5 14"/></svg>
+            </button>
+    
+            <a href="{% url 'muestras' %}" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ffffff" d="M14.8 11.975L6.825 4H19q.625 0 .9.55t-.1 1.05zM19.775 22.6L14 16.825V19q0 .425-.288.713T13 20h-2q-.425 0-.712-.288T10 19v-6.175l-8.6-8.6L2.8 2.8l18.4 18.4z"/></svg>
+            </a>
+        </div>
+        
+ 
+       
+    </form>
+    <!-- <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Default input</label> -->
+    
+</div>
+{% endblock filtro %}
+
+
+{% block bread %}
+<li class="inline-flex items-center">
+    <a href="#" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 ">
+      <svg class="w-3 h-3 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+        <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
+      </svg>
+      Muestras
+    </a>
+  </li>
+  <!-- <li>
+    <div class="flex items-center">
+      <svg class="w-3 h-3 text-gray-400 mx-1 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+      </svg>
+      <a href="#" class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2">Projects</a>
+    </div>
+  </li>
+  <li aria-current="page">
+    <div class="flex items-center">
+      <svg class="w-3 h-3 text-gray-400 mx-1 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+      </svg>
+      <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2">Flowbite</span>
+    </div>
+  </li> -->
+{% endblock bread %}
+
+{% block contenido %}
+    
+
+<div class="grid grid-cols-2 md:grid-cols-6 gap-4">
+    {% for item in muestras_list %}
+    <div class="border rounded-md bg-white h-auto md:h-auto p-3">
+        <div class="flex justify-center mb-3">
+            <h4 class="font-semibold border-b-2">Muestra: {{ item.codigomuestra }}</h4>
+           
+        </div>
+        <div class="flex gap-3 flex-wrap">
+            <div class="mb-2">
+                <p class="text-sm text-gray-600 mb-1">Especie: <span class="font-semibold">{{ item.idvariableambiental.idespecie.nombrecientifico }}</span> </p>
+
+                <p class="text-sm text-gray-600 mb-1">Condición: <span class="font-semibold">{{ item.idcondicionbivalvo.condicion }}</span> </p>
+                <p class="text-sm text-gray-600 mb-1">Ubicación: <span class="font-semibold">{{ item.idvariableambiental.idubicacion.region }}</span> </p>
+                <p class="text-sm text-gray-600 mb-1">Hábitat: <span class="font-semibold">{{ item.idvariableambiental.idhabitat.nombre }}</span> </p>
+                <p class="text-sm text-gray-600 mb-1">Tipo de Hábitat: <span class="font-semibold">{{ item.idvariableambiental.idtipohabitat.tipo }}</span> </p>
+            </div>
+<div class="flex justify-center w-full">
+    <button type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Detalles</button>
+
+</div>
+           
+        </div>
+        <!-- <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image.jpg" alt=""> -->
+    </div>
+    {% endfor %}
+    
+  
+</div>
+
+{% endblock contenido %}
