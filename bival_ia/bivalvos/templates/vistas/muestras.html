@@ -90,7 +90,7 @@
                 <p class="text-sm text-gray-600 mb-1">Tipo de Hábitat: <span class="font-semibold">{{ item.idvariableambiental.idtipohabitat.tipo }}</span> </p>
             </div>
 <div class="flex justify-center w-full">
-    <button type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Detalles</button>
+    <a href="{% url 'detalles-muestra' item.codigomuestra %}"type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Detalles</a>
 
 </div>
            

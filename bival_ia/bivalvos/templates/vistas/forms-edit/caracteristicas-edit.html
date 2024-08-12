@@ -1,0 +1,93 @@
+{% extends 'vistas/editar-muestra.html' %}
+
+{% block form_edit %}
+<form action="" class="bg-white p-5 rounded-md" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="flex justify-center w-full">
+        <h1 class="text-lg font-semibold text-gray-500">Características del bivalvo</h1>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-4 bg-white p-5 rounded-md">
+        <div>
+            <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900 ">Codigo de muestra</label>
+            <input name="codigomuestra" value="{{ muestra.codigomuestra }}" type="text" id="default-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+        </div>
+        <div class="mb-1">
+            <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900 ">Altura</label>
+            <input step="any" name="altura" value="{{ muestra.altura }}" type="number" id="default-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+        </div>
+        <div class="mb-1">
+            <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900 ">Ancho</label>
+            <input step="any" name="ancho" value="{{ muestra.ancho }}" type="number" id="default-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+        </div>
+        <div class="mb-1">
+            <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900 ">Espesor</label>
+            <input step="any" name="espesor" value="{{ muestra.espesor }}" type="number" id="default-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+        </div>
+        <div class="mb-1">
+            <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900 ">Color</label>
+            <input name="color" type="text" value="{{ muestra.color }}" id="default-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+        </div>
+        <div class="mb-1">
+            <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900 ">Estructura de concha</label>
+            <input name="estructuraconcha" value="{{ muestra.estructuraconcha }}" type="text" id="default-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+        </div>
+        <div class="mb-1">
+            <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900 ">Peso con carne</label>
+            <input step="any" name="pesoconcarne" value="{{ muestra.pesoconcarne }}" type="number" id="default-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+        </div>
+        <div class="mb-1">
+            <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900 ">Peso sin carne</label>
+            <input step="any" name="pesosincarne" value="{{ muestra.pesosincarne }}" type="number" id="default-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+        </div>
+    
+        <div class="mb-1">
+            <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 ">Condición del Bivalvo</label>
+            <select name="idcondicionbivalvo" value="{{ muestra.idcondicion }}" id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required>
+              <!-- <option selected>Seleccione</option> -->
+              {% for item in condiciones_list %}
+              <option value="{{ item.id }}">{{ item.condicion }}</option>
+              {% endfor %}
+            </select>
+        </div>
+    
+        <div class="mb-1">
+            <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 ">Forma</label>
+            <select name="idforma" id="countries" value="{{ muestra.idforma }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required>
+              <!-- <option selected>Seleccione</option> -->
+              {% for item in formas_list %}
+              <option value="{{ item.id }}">{{ item.forma }}</option>
+                
+              {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="flex justify-end w-full mt-4">
+        <a href="/muestras/detalles/{{ muestra.codigomuestra }}" type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Cancelar</a>
+     <button type="submit" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Guardar</button>
+      
+      </div>
+</form>
+
+<!-- <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mt-4">
+    <div>
+        <label class="block mb-2 text-sm font-medium text-gray-900" for="file_input">Fotografía ángulo dorsal</label>
+        <input name="fotodorsal" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 p-2.5" id="file_input" type="file" required>
+    </div>
+    <div>
+        <label class="block mb-2 text-sm font-medium text-gray-900" for="file_input">Fotografía ángulo lateral</label>
+        <input name="fotolateral" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 p-2.5" id="file_input" type="file" required>
+    </div>
+    <div>
+        <label class="block mb-2 text-sm font-medium text-gray-900" for="file_input">Fotografía ángulo ventral</label>
+        <input name="fotoventral" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 p-2.5" id="file_input" type="file" required>
+    </div>
+    <div>
+        <label class="block mb-2 text-sm font-medium text-gray-900" for="file_input">Fotografía ángulo anterior</label>
+        <input name="fotoanterior" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 p-2.5" id="file_input" type="file" required>
+    </div>
+    <div>
+        <label class="block mb-2 text-sm font-medium text-gray-900" for="file_input">Fotografia ángulo posterior ángulo</label>
+        <input name="fotoposterior" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 p-2.5" id="file_input" type="file" required>
+    </div>
+</div>   -->
+{% endblock form_edit %}

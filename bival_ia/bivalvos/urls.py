@@ -1,9 +1,12 @@
 from django.urls import path
 from . import views
 
+
 urlpatterns = [
-    path('', views.inicio, name = 'inicio'),
+    path('', views.muestras),
     path('muestras', views.muestras, name = 'muestras'),
-    path('agregar-muestra', views.agregar, name = 'agregar-muestra')
+    path('agregar-muestra', views.agregar, name = 'agregar-muestra'),
+    path('muestras/detalles/<codigomuestra>', views.detalles, name = 'detalles-muestra'),
+    path('muestras/detalles/editar/<codigomuestra>', views.editar_caracteristicas, name = 'editar-caracteristicas-muestra')
 
 ]

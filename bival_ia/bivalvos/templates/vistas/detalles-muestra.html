@@ -1,0 +1,362 @@
+{% extends 'layout.html' %}
+
+{% block titulo %}
+    Detalles de muestra
+{% endblock  %}
+
+{% block menu_item %}
+<li>
+    <a href="/muestras" class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500" aria-current="page">Muestras</a>
+  </li>
+  <li>
+    <a href="/agregar-muestra" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Agregar Muestras</a>
+  </li>
+
+{% endblock menu_item %}
+
+{% block seccion %}
+    Detalles de muestra {{ muestra.codigomuestra }}
+{% endblock seccion %}
+{% block filtro %}
+<button data-modal-target="popup-modal" data-modal-toggle="popup-modal" type="button" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Eliminar</button>
+{% endblock filtro %}
+
+{% block bread %}
+<li class="inline-flex items-center">
+    <a href="/muestras" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 ">
+      <svg class="w-3 h-3 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+        <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
+      </svg>
+      Muestras
+    </a>
+  </li>
+  <li>
+    <div class="flex items-center">
+      <svg class="w-3 h-3 text-gray-400 mx-1 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+      </svg>
+      <a href="#" class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2">Detalles</a>
+    </div>
+  </li>
+  <!-- <li aria-current="page">
+    <div class="flex items-center">
+      <svg class="w-3 h-3 text-gray-400 mx-1 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+      </svg>
+      <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2">Flowbite</span>
+    </div>
+  </li> -->
+{% endblock bread %}
+
+{% block contenido %}
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="flex justify-center border rounded-md flex-wrap p-5 bg-white">
+        <div class="flex items-center justify-center w-full">
+            <h1 class="font-semibold text-lg border-b-2 mb-4">Características del bivalvo</h1>
+        </div>
+        <br>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-10 w-full mb-4">
+            <div class="flex flex-col">
+                <div class="flex justify-between mb-1">
+                    <p>Código de muestra:</p> 
+                    <span class="font-semibold">{{ muestra.codigomuestra }}</span> 
+                </div>
+                 <div class="flex justify-between mb-1">
+                    <p>Estructura de concha:</p> 
+                    <span class="font-semibold">{{ muestra.estructuraconcha }}</span>
+                 </div>
+                 <div class="flex justify-between mb-1">
+                    <p>Color:</p> 
+                    <span class="font-semibold">{{ muestra.color }}</span>
+                 </div>
+                 <div class="flex justify-between mb-1">
+                    <p>Peso sin carne:</p> 
+                    <span class="font-semibold">{{ muestra.pesosincarne }} oz</span>
+                 </div>
+                 <div class="flex justify-between mb-1">
+                    <p>Peso con carne:</p> 
+                    <span class="font-semibold">{{ muestra.pesoconcarne }} oz</span>
+                 </div>
+                   
+            </div>
+            <div class="flex flex-col">
+                <div class="flex justify-between mb-1">
+                    <p>Altura:</p> 
+                    <span class="font-semibold">{{ muestra.altura }} cm</span> 
+                </div >
+                 <div class="flex justify-between mb-1">
+                    <p>Ancho:</p> 
+                    <span class="font-semibold">{{ muestra.ancho }} cm</span>
+                 </div>
+                 <div class="flex justify-between mb-1">
+                    <p>Espesor:</p> 
+                    <span class="font-semibold">{{ muestra.espesor }} cm</span>
+                 </div>
+                 <div class="flex justify-between mb-1">
+                    <p>Forma:</p> 
+                    <span class="font-semibold">{{ muestra.idforma.forma }}</span>
+                 </div>
+                 <div class="flex justify-between mb-1">
+                    <p>Condición:</p> 
+                    <span class="font-semibold">{{ muestra.idcondicionbivalvo.condicion }}</span>
+                 </div>
+                   
+            </div>
+        </div>
+        <a href="/muestras/detalles/editar/{{ muestra.codigomuestra }}" type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Editar</a>
+    </div>
+
+    <div class="flex justify-center border rounded-md flex-wrap p-5 bg-white">
+        <div class="flex items-center justify-center w-full">
+            <h1 class="font-semibold text-lg border-b-2 mb-4">Variables ambientales</h1>
+        </div>
+        <br>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-10 w-full mb-4">
+            <div class="flex flex-col">
+                <div class="flex justify-between mb-1">
+                    <p>Temperatura:</p> 
+                    <span class="font-semibold">{{ muestra.idvariableambiental.temperatura }} °C</span> 
+                </div>
+                 <div class="flex justify-between mb-1">
+                    <p>Salinidad:</p> 
+                    <span class="font-semibold">{{ muestra.idvariableambiental.salinidad }}</span>
+                 </div>
+                 <div class="flex justify-between mb-1">
+                    <p>Potencial de hidrógeno:</p> 
+                    <span class="font-semibold">{{ muestra.idvariableambiental.ph }} ph</span>
+                 </div>
+                 <div class="flex justify-between mb-1">
+                    <p>Oxígeno:</p> 
+                    <span class="font-semibold">{{ muestra.idvariableambiental.oxigeno }} mg</span>
+                 </div>
+                 <!-- <div class="flex justify-between mb-1">
+                    <p>Peso con carne:</p> 
+                    <span class="font-semibold">{{ muestra.pesoconcarne }}</span>
+                 </div> -->
+                   
+            </div>
+            <div class="flex flex-col">
+                <div class="flex justify-between mb-1">
+                    <p>Hábitat:</p> 
+                    <span class="font-semibold">{{ muestra.idvariableambiental.idhabitat.nombre }}</span> 
+                </div>
+                <div class="flex justify-between mb-1">
+                    <p>Tipo hábitat:</p> 
+                    <span class="font-semibold">{{ muestra.idvariableambiental.idtipohabitat.tipo }}</span>
+                 </div>
+                 <div class="flex justify-between mb-1">
+                    <p>Especie:</p> 
+                    <span class="font-semibold">{{ muestra.idvariableambiental.idespecie.nombrecientifico }}</span>
+                 </div>
+                 <div class="flex justify-between mb-1">
+                    <p>Género:</p> 
+                    <span class="font-semibold">{{ muestra.idvariableambiental.idespecie.idgenero.nombre }}</span>
+                 </div>
+                 <div class="flex justify-between mb-1">
+                    <p>Familia:</p> 
+                    <span class="font-semibold">{{ muestra.idvariableambiental.idespecie.idgenero.idfamilia.nombre }}</span>
+                 </div>
+            </div>
+        </div>
+        <button type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Editar</button>
+    </div>
+
+    <div class="flex justify-center border rounded-md flex-wrap p-5 bg-white">
+        <div class="flex items-center justify-center w-full">
+            <h1 class="font-semibold text-lg border-b-2 mb-4">Datos de ubicación</h1>
+        </div>
+        <br>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-10 w-full mb-4">
+            <div class="flex flex-col">
+                <div class="flex justify-between mb-1">
+                    <p>Latitud:</p> 
+                    <span class="font-semibold">{{ muestra.idvariableambiental.idubicacion.latitud }}</span> 
+                </div>
+                 <div class="flex justify-between mb-1">
+                    <p>Longitud:</p> 
+                    <span class="font-semibold">{{ muestra.idvariableambiental.idubicacion.longitud }}</span>
+                 </div>
+                 
+            </div>
+            <div class="flex flex-col">
+                <div class="flex justify-between mb-1">
+                    <p>Altitud:</p> 
+                    <span class="font-semibold">{{ muestra.idvariableambiental.idubicacion.altitud }} m</span>
+                 </div>
+                 <div class="flex justify-between mb-1">
+                    <p>Región:</p> 
+                    <span class="font-semibold">{{ muestra.idvariableambiental.idubicacion.region }}</span>
+                 </div>
+                 
+            </div>
+        </div>
+        <button type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Editar</button>
+    </div>
+
+    <div class="flex justify-center border rounded-md flex-wrap p-5 bg-white">
+        <div class="flex items-center justify-center w-full">
+            <h1 class="font-semibold text-lg border-b-2 mb-4">Datos de ubicación</h1>
+        </div>
+        <br>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-10 w-full mb-4">
+            <div class="flex flex-col">
+                <div class="flex justify-between mb-1">
+                    <p>Hora:</p> 
+                    <span class="font-semibold">{{ muestra.idvariableambiental.idmarea.hora }}</span> 
+                </div>
+                 <div class="flex justify-between mb-1">
+                    <p>Zona o lugar:</p> 
+                    <span class="font-semibold">{{ muestra.idvariableambiental.idmarea.zonalugar }}</span>
+                 </div>
+                 
+            </div>
+            <div class="flex flex-col">
+                <div class="flex justify-between mb-1">
+                    <p>Altitud de marea:</p> 
+                    <span class="font-semibold">{{ muestra.idvariableambiental.idmarea.altitudmarea }} m</span>
+                 </div>
+                 <div class="flex justify-between mb-1">
+                    <p>Observación:</p> 
+                    <span class="font-semibold">{{ muestra.idvariableambiental.idmarea.observaciones }}</span>
+                 </div>
+                 
+            </div>
+        </div>
+        <button type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Editar</button>
+    </div>
+</div>
+<div class=" bg-white mt-4 p-5 rounded-md">
+    <div  class="flex justify-center w-full mb-6">
+        <h1 class="font-semibold text-lg border-b-2">Fotografías de la muestra</h1>
+
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 ">
+    
+        <div>
+            <button data-modal-target="default-modal" data-modal-toggle="default-modal"  type="button">
+                <img style="width: 400px; height: 300px; object-fit: cover;" src="{{ muestra.fotodorsal.url }}" alt="Foto Dorsal">
+              </button>
+              <div class="flex justify-center w-full">
+                <p class="italic text-gray-400">Muestra: {{ muestra.codigomuestra }} - Fotografía Dorsal</p>
+            </div>
+        </div>
+        <div>
+            <button data-modal-target="default-modal1" data-modal-toggle="default-modal1"  type="button">
+                <img style="width: 400px; height: 300px; object-fit: cover;" src="{{ muestra.fotolateral.url }}" alt="Foto Dorsal">
+            </button>
+            <div class="flex justify-center w-full">
+                <p class="italic text-gray-400">Muestra: {{ muestra.codigomuestra }} - Fotografía Lateral</p>
+            </div>
+        </div>
+        <div>
+            <button data-modal-target="default-modal2" data-modal-toggle="default-modal2"  type="button">
+                <img style="width: 400px; height: 300px; object-fit: cover;" src="{{ muestra.fotoventral.url }}" alt="Foto Dorsal">
+              </button>
+              <div class="flex justify-center w-full">
+                <p class="italic text-gray-400">Muestra: {{ muestra.codigomuestra }} - Fotografía Ventral</p>
+            </div>
+        </div>
+        <div>
+            <button data-modal-target="default-modal3" data-modal-toggle="default-modal3"  type="button">
+                <img style="width: 400px; height: 300px; object-fit: cover;" src="{{ muestra.fotoanterior.url }}" alt="Foto Dorsal">
+              </button>
+              <div class="flex justify-center w-full">
+                <p class="italic text-gray-400">Muestra: {{ muestra.codigomuestra }} - Fotografía Anterior</p>
+            </div>
+        </div>
+        <div>
+            <button data-modal-target="default-modal4" data-modal-toggle="default-modal4"  type="button">
+                <img style="width: 400px; height: 300px; object-fit: cover;" src="{{ muestra.fotoposterior.url }}" alt="Foto Dorsal">
+              </button>
+              <div class="flex justify-center w-full">
+                <p class="italic text-gray-400">Muestra: {{ muestra.codigomuestra }} - Fotografía Posterior</p>
+            </div>
+        </div>
+        </div>
+</div>
+
+
+<div id="default-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 w-full max-w-2xl max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <img src="{{ muestra.fotodorsal.url }}" alt="Foto Dorsal">
+        </div>
+        <div class="flex justify-center w-full">
+            <p class="text-white italic">Muestra: {{ muestra.codigomuestra }} - Fotografía Dorsal</p>
+        </div>
+    </div>
+</div>
+
+<div id="default-modal1" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 w-full max-w-2xl max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <img src="{{ muestra.fotolateral.url }}" alt="Foto Dorsal">
+        </div>
+        <div class="flex justify-center w-full">
+            <p class="text-white italic">Muestra: {{ muestra.codigomuestra }} - Fotografía Lateral</p>
+        </div>
+    </div>
+</div>
+
+<div id="default-modal2" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 w-full max-w-2xl max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <img src="{{ muestra.fotoventral.url }}" alt="Foto Dorsal">
+        </div>
+        <div class="flex justify-center w-full">
+            <p class="text-white italic">Muestra: {{ muestra.codigomuestra }} - Fotografía Ventral</p>
+        </div>
+    </div>
+</div>
+
+<div id="default-modal3" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 w-full max-w-2xl max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <img src="{{ muestra.fotoanterior.url }}" alt="Foto Dorsal">
+        </div>
+        <div class="flex justify-center w-full">
+            <p class="text-white italic">Muestra: {{ muestra.codigomuestra }} - Fotografía Anterior</p>
+        </div>
+    </div>
+</div>
+
+<div id="default-modal4" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 w-full max-w-2xl max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <img src="{{ muestra.fotoposterior.url }}" alt="Foto Dorsal">
+        </div>
+        <div class="flex justify-center w-full">
+            <p class="text-white italic">Muestra: {{ muestra.codigomuestra }} - Fotografía Posterior</p>
+        </div>
+    </div>
+</div>
+
+<div id="popup-modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 w-full max-w-md max-h-full">
+        <div class="relative bg-white rounded-lg shadow">
+            <button type="button" class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center bg-gray-400" data-modal-hide="popup-modal">
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                </svg>
+                <span class="sr-only">Close modal</span>
+            </button>
+            <div class="p-4 md:p-5 text-center ">
+                <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                </svg>
+                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">¿Estás seguro de eliminar la muestra {{ muestra.codigomuestra }}?</h3>
+                <button data-modal-hide="popup-modal" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                   Eliminar
+                </button>
+                <button data-modal-hide="popup-modal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">No, cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock contenido %}

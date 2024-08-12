@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import *
 from django.db import transaction
@@ -110,3 +110,29 @@ def agregar(request):
 
     return render(request, 'vistas/agregar-muestra.html', {'condiciones_list': condiciones_list, 'formas_list': formas_list,
                                                            'habitat': habitat, 'tipo_habitat': tipo_habitat, 'especies_list': especies_list})
+
+
+def detalles(request, codigomuestra):
+    muestra = get_object_or_404(Caracteristicasbivalvos, codigomuestra=codigomuestra)
+
+    return render(request, 'vistas/detalles-muestra.html', {'muestra': muestra})
+
+def editar_caracteristicas(request, codigomuestra):
+    muestra = get_object_or_404(Caracteristicasbivalvos, codigomuestra=codigomuestra)
+    condiciones_list = Condicionesbivalvos.objects.all()
+    formas_list = Formas.objects.all()
+    if request.method == 'POST':
+        # Actualizar los campos con los datos enviados en el formulario
+        muestra.codigomuestra = request.POST.get('codigomuestra')
+        muestra.altura = request.POST.get('altura')
+        muestra.ancho = request.POST.get('ancho')
+        muestra.espesor = request.POST.get('espesor')
+        muestra.color = request.POST.get('color')
+        muestra.estructuraconcha = request.POST.get('estructuraconcha')
+        muestra.pesoconcarne = request.POST.get('pesoconcarne')
+        muestra.pesosincarne = request.POST.get('pesosincarne')
+    
+        muestra.save()
+        return redirect('detalles-muestra', codigomuestra=muestra.codigomuestra)
+    return render(request, 'vistas/forms-edit/caracteristicas-edit.html', {'muestra': muestra, 'condiciones_list': condiciones_list, 'formas_list': formas_list})
+
