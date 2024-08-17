@@ -2,11 +2,20 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import *
 from django.db import transaction
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
+from .forms import CustomUserCreationForm
+from django.contrib.auth import authenticate, login
+from bivalvos.models import AuthUser  # Importa el modelo de usuario personalizado
+
+
 
 # Create your views here.
 def inicio(request):
     return HttpResponse("<h1> Hola</h1>")
 
+
+@login_required
 def muestras(request):
     filtro = request.GET.get('filtro', None)  # Obtener el valor de la consulta GET
     if filtro:
@@ -16,8 +25,10 @@ def muestras(request):
     # muestras_list = Caracteristicasbivalvos.objects.all()
     return render(request, 'vistas/muestras.html',{'muestras_list': muestras_list})
 
+@login_required
 @transaction.atomic
 def agregar(request):
+    auth_user_instance = AuthUser.objects.get(pk=request.user.pk) 
     condiciones_list = Condicionesbivalvos.objects.all()
     formas_list = Formas.objects.all()
     habitat = Habitats.objects.all()
@@ -97,6 +108,7 @@ def agregar(request):
                 idcondicionbivalvo = condicion_instance,
                 idforma = forma_instance,
                 idvariableambiental = variablesambientales_form,
+                iduser = auth_user_instance 
             )
             caracteristicas_form.save()
 
@@ -111,12 +123,13 @@ def agregar(request):
     return render(request, 'vistas/agregar-muestra.html', {'condiciones_list': condiciones_list, 'formas_list': formas_list,
                                                            'habitat': habitat, 'tipo_habitat': tipo_habitat, 'especies_list': especies_list})
 
-
+@login_required
 def detalles(request, codigomuestra):
     muestra = get_object_or_404(Caracteristicasbivalvos, codigomuestra=codigomuestra)
 
     return render(request, 'vistas/detalles-muestra.html', {'muestra': muestra})
 
+@login_required
 def editar_caracteristicas(request, codigomuestra):
     muestra = get_object_or_404(Caracteristicasbivalvos, codigomuestra=codigomuestra)
     condiciones_list = Condicionesbivalvos.objects.all()
@@ -136,3 +149,32 @@ def editar_caracteristicas(request, codigomuestra):
         return redirect('detalles-muestra', codigomuestra=muestra.codigomuestra)
     return render(request, 'vistas/forms-edit/caracteristicas-edit.html', {'muestra': muestra, 'condiciones_list': condiciones_list, 'formas_list': formas_list})
 
+
+
+
+
+
+
+
+
+def exit(request):
+    logout(request)
+    return redirect('login')
+
+def register(request):
+    data = {
+        'form': CustomUserCreationForm()
+    }
+
+    if request.method == 'POST':
+        user_creation_form = CustomUserCreationForm(data=request.POST)
+
+        if user_creation_form.is_valid():
+            user_creation_form.save()
+
+            # user = authenticate(username=user_creation_form.cleaned_data['username'], password=user_creation_form.cleaned_data['password1'])
+            # login(request, user)
+            return redirect('muestras')
+        else:
+            data['form'] = user_creation_form
+    return render(request,'registration/register.html', data)
