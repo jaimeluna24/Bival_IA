@@ -128,7 +128,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 # Default primary key field type
@@ -147,10 +147,13 @@ STATICFILES_DIRS = [
 ]
 
 # settings.py
-# STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
-MEDIA_URL = '/media/'
+# Ruta donde se almacenarán los archivos subidos
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# URL para acceder a los archivos subidos
+MEDIA_URL = '/media/'
 
 LOGIN_REDIRECT_URL = 'muestras'
 LOGOUT_REDIRECT_URL = 'login'

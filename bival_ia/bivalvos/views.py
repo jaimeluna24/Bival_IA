@@ -149,6 +149,61 @@ def editar_caracteristicas(request, codigomuestra):
         return redirect('detalles-muestra', codigomuestra=muestra.codigomuestra)
     return render(request, 'vistas/forms-edit/caracteristicas-edit.html', {'muestra': muestra, 'condiciones_list': condiciones_list, 'formas_list': formas_list})
 
+@login_required
+def editar_variables(request, codigomuestra, idvariable):
+    habitat = Habitats.objects.all()
+    tipo_habitat = Tiposhabitat.objects.all()
+    especies_list = Especies.objects.all()
+    muestra = get_object_or_404(Caracteristicasbivalvos, codigomuestra = codigomuestra)
+    variablesambiantales = get_object_or_404(Variablesambientales, id = idvariable)
+    if request.method == 'POST':
+        # Actualizar los campos con los datos enviados en el formulario
+        variablesambiantales.temperatura = request.POST.get('temperatura')
+        variablesambiantales.salinidad = request.POST.get('salinidad')
+        variablesambiantales.ph = request.POST.get('ph')
+        variablesambiantales.oxigeno = request.POST.get('oxigeno')
+        variablesambiantales.idhabitat = request.POST.get('idhabitat')
+        variablesambiantales.idespecie = request.POST.get('idespecie')
+        variablesambiantales.idtipohabitat = request.POST.get('idtipohabitat')
+    
+        muestra.save()
+        return redirect('detalles-muestra', codigomuestra=muestra.codigomuestra)
+    return render(request, 'vistas/forms-edit/variables-ambientales-edit.html', {'muestra': muestra, 'variablesambientales': variablesambiantales,
+                                                                                  'habitat': habitat, 'tipo_habitat': tipo_habitat, 'especies_list': especies_list })
+
+@login_required
+def editar_ubicacion(request, codigomuestra, idubicacion):
+
+    muestra = get_object_or_404(Caracteristicasbivalvos, codigomuestra = codigomuestra)
+    ubicacion = get_object_or_404(Ubicaciones, id = idubicacion)
+    if request.method == 'POST':
+        # Actualizar los campos con los datos enviados en el formulario
+        ubicacion.latitud = request.POST.get('latitud')
+        ubicacion.longitud = request.POST.get('longitud')
+        ubicacion.altitud = request.POST.get('altitud')
+        ubicacion.region = request.POST.get('region')
+    
+        muestra.save()
+        return redirect('detalles-muestra', codigomuestra=muestra.codigomuestra)
+    return render(request, 'vistas/forms-edit/ubicacion-edit.html', {'muestra': muestra, 'ubicacion': ubicacion,})
+
+@login_required
+def editar_marea(request, codigomuestra, idmarea):
+
+    muestra = get_object_or_404(Caracteristicasbivalvos, codigomuestra = codigomuestra)
+    marea = get_object_or_404(Mareas, id = idmarea)
+    if request.method == 'POST':
+        # Actualizar los campos con los datos enviados en el formulario
+        marea.hora = request.POST.get('hora')
+        marea.zonalugar = request.POST.get('zonalugar')
+        marea.altitudmarea = request.POST.get('altitudmarea')
+        marea.observaciones = request.POST.get('observaciones')
+    
+        muestra.save()
+        return redirect('detalles-muestra', codigomuestra=muestra.codigomuestra)
+    return render(request, 'vistas/forms-edit/mareas-edit.html', {'muestra': muestra, 'marea': marea,})
+
+
 
 
 
