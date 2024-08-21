@@ -154,19 +154,32 @@ def editar_variables(request, codigomuestra, idvariable):
     habitat = Habitats.objects.all()
     tipo_habitat = Tiposhabitat.objects.all()
     especies_list = Especies.objects.all()
+   
     muestra = get_object_or_404(Caracteristicasbivalvos, codigomuestra = codigomuestra)
+   
     variablesambiantales = get_object_or_404(Variablesambientales, id = idvariable)
     if request.method == 'POST':
+           # Se obtiene la instancia de Habitats
+        idhabitats = request.POST.get('idhabitat')
+        habitat_instance = Habitats.objects.get(id=idhabitats)
+        # Se obtiene la instancia de Especies
+        idespecie = request.POST.get('idespecie')
+        especie_instance = Especies.objects.get(id=idespecie)
+        # Se obtiene la instancia de TipoHabitat
+        idtipohabitat = request.POST.get('idtipohabitat')
+        tipohabitat_instance = Tiposhabitat.objects.get(id=idtipohabitat)
+
+
         # Actualizar los campos con los datos enviados en el formulario
         variablesambiantales.temperatura = request.POST.get('temperatura')
         variablesambiantales.salinidad = request.POST.get('salinidad')
         variablesambiantales.ph = request.POST.get('ph')
         variablesambiantales.oxigeno = request.POST.get('oxigeno')
-        variablesambiantales.idhabitat = request.POST.get('idhabitat')
-        variablesambiantales.idespecie = request.POST.get('idespecie')
-        variablesambiantales.idtipohabitat = request.POST.get('idtipohabitat')
+        variablesambiantales.idhabitat = habitat_instance
+        variablesambiantales.idespecie = especie_instance
+        variablesambiantales.idtipohabitat = tipohabitat_instance
     
-        muestra.save()
+        variablesambiantales.save()
         return redirect('detalles-muestra', codigomuestra=muestra.codigomuestra)
     return render(request, 'vistas/forms-edit/variables-ambientales-edit.html', {'muestra': muestra, 'variablesambientales': variablesambiantales,
                                                                                   'habitat': habitat, 'tipo_habitat': tipo_habitat, 'especies_list': especies_list })
@@ -183,7 +196,7 @@ def editar_ubicacion(request, codigomuestra, idubicacion):
         ubicacion.altitud = request.POST.get('altitud')
         ubicacion.region = request.POST.get('region')
     
-        muestra.save()
+        ubicacion.save()
         return redirect('detalles-muestra', codigomuestra=muestra.codigomuestra)
     return render(request, 'vistas/forms-edit/ubicacion-edit.html', {'muestra': muestra, 'ubicacion': ubicacion,})
 
@@ -199,17 +212,9 @@ def editar_marea(request, codigomuestra, idmarea):
         marea.altitudmarea = request.POST.get('altitudmarea')
         marea.observaciones = request.POST.get('observaciones')
     
-        muestra.save()
+        marea.save()
         return redirect('detalles-muestra', codigomuestra=muestra.codigomuestra)
     return render(request, 'vistas/forms-edit/mareas-edit.html', {'muestra': muestra, 'marea': marea,})
-
-
-
-
-
-
-
-
 
 
 def exit(request):
