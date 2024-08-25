@@ -1,0 +1,85 @@
+{% extends 'vistas/editar-muestra.html' %}
+
+{% block form_edit %}
+<form action="" class="bg-white p-5 rounded-md" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="flex justify-center w-full mb-2">
+        <h1 class="text-lg font-semibold text-gray-500">Variables ambientales</h1>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div>
+            <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900 ">Temperatura</label>
+            <input value="{{ variablesambientales.temperatura }}" placeholder="0" step="any" name="temperatura" type="number" id="default-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" requireed>
+        </div>
+        <div>
+            <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900 ">Salinidad</label>
+            <input value="{{ variablesambientales.salinidad }}" placeholder="0" step="any" name="salinidad" type="number" id="default-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" requireed>
+        </div>
+        <div>
+            <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900 ">Ph</label>
+            <input value="{{ variablesambientales.ph }}" placeholder="0" step="any" name="ph"  type="number" id="default-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" requireed>
+        </div>
+        <div>
+            <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900 ">Oxigeno</label>
+            <input value="{{ variablesambientales.oxigeno }}" placeholder="0" step="any" name="oxigeno" type="number" id="default-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" requireed>
+        </div>
+        <div class="mb-1">
+            <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 ">Hábitat</label>
+            <select value="{{ variablesambientales.idhabitat.id }}" name="idhabitat" id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " requireed>
+             {% for item in habitat %}
+              <option value="{{ item.id }}" {% if variablesambientales.idhabitat.id == item.id %}selected{% endif %}>
+                {{ item.nombre }}</option>
+             {% endfor %}
+            </select>
+        </div>
+    
+        <div class="mb-1">
+            <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 ">Tipo Hábitat</label>
+            <select value="{{ variablesambientales.idtipohabitat.id }}" name="idtipohabitat" id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "requireed>
+              {% for item in tipo_habitat %}
+              <option value="{{ item.id }}" {% if variablesambientales.idtipohabitat.id == item.id %}selected{% endif %}>{{ item.tipo }}</option>
+              {% endfor %}
+            </select>
+        </div>
+    
+        <div class="mb-1">
+            <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 ">Especie</label>
+            <select value="{{ variablesambientales.idespecie.id }}" name="idespecie" id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " requireed>
+              {% for item in especies_list %}
+              <option value="{{ item.id }}" {% if variablesambientales.idespecie.id == item.id %}selected{% endif %}>{{ item.nombrecientifico }}</option>
+              {% endfor %}
+            </select>
+        </div>
+    
+    </div>
+    
+    <div class="flex justify-end w-full mt-4">
+        <a href="/muestras/detalles/{{ muestra.codigomuestra }}" type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Cancelar</a>
+     <button type="submit" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Guardar</button>
+      
+      </div>
+</form>
+
+<!-- <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mt-4">
+    <div>
+        <label class="block mb-2 text-sm font-medium text-gray-900" for="file_input">Fotografía ángulo dorsal</label>
+        <input name="fotodorsal" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 p-2.5" id="file_input" type="file" required>
+    </div>
+    <div>
+        <label class="block mb-2 text-sm font-medium text-gray-900" for="file_input">Fotografía ángulo lateral</label>
+        <input name="fotolateral" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 p-2.5" id="file_input" type="file" required>
+    </div>
+    <div>
+        <label class="block mb-2 text-sm font-medium text-gray-900" for="file_input">Fotografía ángulo ventral</label>
+        <input name="fotoventral" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 p-2.5" id="file_input" type="file" required>
+    </div>
+    <div>
+        <label class="block mb-2 text-sm font-medium text-gray-900" for="file_input">Fotografía ángulo anterior</label>
+        <input name="fotoanterior" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 p-2.5" id="file_input" type="file" required>
+    </div>
+    <div>
+        <label class="block mb-2 text-sm font-medium text-gray-900" for="file_input">Fotografia ángulo posterior ángulo</label>
+        <input name="fotoposterior" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 p-2.5" id="file_input" type="file" required>
+    </div>
+</div>   -->
+{% endblock form_edit %}
